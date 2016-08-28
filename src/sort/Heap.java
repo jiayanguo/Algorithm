@@ -30,7 +30,7 @@ public class Heap {
         if (nums == null || nums.length == 0 || nums.length==1) return;
         int mid = nums.length/2;
 
-        for (int i= mid; i>=0; i --){
+        for (int i= mid; i >= 0; i --){
             maxHeapify(nums, i, nums.length);
         }
     }
