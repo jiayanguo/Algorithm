@@ -7,22 +7,21 @@ package sort;
  */
 public class Heap {
 
-    public void maxHeapify(int[] nums, int i){
-        if (nums == null || nums.length == 0 || nums.length==1) return;
+    public void maxHeapify(int[] nums, int i, int len){
+        if (nums == null || len> nums.length || len == 0 || len == 1) return;
         int l = 2*i+1;
         int r = 2*i+2;
-        int length= nums.length;
         int largest = i;
 
-        if (l < length && nums[l] > nums[i]) {
+        if (l < len && nums[l] > nums[i]) {
             largest = l;
         }
-        if (r < length && nums[r] > nums[largest]) {
+        if (r < len && nums[r] > nums[largest]) {
             largest = r;
         }
         if (largest != i){
             swap(nums, i, largest);
-            maxHeapify(nums, largest);
+            maxHeapify(nums, largest, len);
         }
 
     }
@@ -32,7 +31,7 @@ public class Heap {
         int mid = nums.length/2;
 
         for (int i= mid; i>=0; i --){
-            maxHeapify(nums, i);
+            maxHeapify(nums, i, nums.length);
         }
     }
 
@@ -49,29 +48,16 @@ public class Heap {
 
         for (int i = nums.length-1; i>0; i--){
             swap(nums,0, i);
-            int[] newNums = removeElements(nums,i );
-            maxHeapify(newNums, 0);
-            for (int j =0; j < newNums.length; j++){
-                nums[j] = newNums[j];
-            }
+            maxHeapify(nums, 0, i);
         }
         return nums;
     }
 
-    private int[] removeElements (int[] nums, int i){
-        if(i > nums.length) return nums;
-        if (i < 0) return new int[0];
-        int[] result = new int[i];
-        for ( int j =0; j < i; j++){
-            result[j] = nums[j];
-        }
-        return result;
-    }
 
     public static void main (String[] args){
         Heap heap = new Heap();
         int[] nums = {1,3, 5,2, 9, 10, 7, 45, 6};
-        heap.maxHeapify(nums, 0);
+        heap.maxHeapify(nums, 0, nums.length);
         for (int i =0; i <nums.length; i++){
             System.out.print(nums[i] + " ");
         }
