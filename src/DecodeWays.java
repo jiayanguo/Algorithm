@@ -1,21 +1,19 @@
 /**
  * Created by jiayanguo on 9/6/16.
  */
+
+
+/**
+ *Sample:
+ *
+ "11111878787676172120121101212918291829819"
+ Output
+ 2496
+ Expected
+ 6240
+
+ */
 public class DecodeWays {
-
-    /**
-     *
-     *
-     "11111878787676172120121101212918291829819"
-     Output
-     2496
-     Expected
-     6240
-
-
-     * @param s a string,  encoded message
-     * @return an integer, the number of ways decoding
-     */
 
     public int numDecodingsHelper(String s) {
         if (s.length() == 0) return 0;
@@ -51,6 +49,10 @@ public class DecodeWays {
         }
     }
 
+    /*
+    * @param s a string,  encoded message
+    * @return an integer, the number of ways decoding
+    */
     public int numDecodings (String s){
         if (s.length() == 0) return 0;
         char c = s.charAt(0);
