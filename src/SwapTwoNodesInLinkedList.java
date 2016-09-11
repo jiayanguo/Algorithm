@@ -2,9 +2,8 @@
  * Created by jiayanguo on 9/7/16.
  *
  * Description:
- * Given a linked list and two values v1 and v2. Swap the two nodes in the linked list with values v1 and v2. It's guaranteed there is no duplicate values in the linked list. If v1 or v2 does not exist in the given linked list, do nothing.
-
-
+ * Given a linked list and two values v1 and v2. Swap the two nodes in the linked list with values v1 and v2.
+ * It's guaranteed there is no duplicate values in the linked list. If v1 or v2 does not exist in the given linked list, do nothing.
  */
 public class SwapTwoNodesInLinkedList {
 
