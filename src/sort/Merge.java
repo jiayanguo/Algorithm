@@ -1,63 +1,81 @@
 package sort;
 
+import static utils.ArrayUtils.*;
+
 /**
  * Created by jiayanguo on 8/27/16.
  */
 public class Merge {
-    public int[] mergeSort(int[] nums){
-        int mid = nums.length/2;
-        if (mid == 0) return nums;
-        int right[] = new int[nums.length-mid];
-        int left[] = new int[mid];
+    public static int[] mergeSort(int[] nums, int start, int end){
+        if (start >= end) return nums;
+        int mid = (start + end)/2;
 
-        for (int i =0; i< mid; i ++){
-            left[i]= nums[i];
-        }
-        for (int i = mid; i< nums.length; i++){
-            right[i-mid] = nums [i];
-        }
+        mergeSort(nums, start, mid);
+        mergeSort(nums, mid + 1, end);
 
-        right = mergeSort(right);
-        left = mergeSort(left);
-
-        int[] result = merge(left, right);
-        return result;
+//        return mergeInPlace(nums, start, mid, end);
+        return mergeWithNewArray(nums, start, mid, end);
     }
 
-    private int[] merge (int[] nums1, int[] nums2){
-        if (nums1.length == 0) return nums2;
-        if (nums2.length == 0) return nums1;
-        int[] result = new int[nums1.length+ nums2.length];
+    /**
+     * memory O(n)
+     */
+    private static int[] mergeInPlace (int[] nums, int start, int mid, int end){
+        if ( start == end ) return nums;
+
+        int i = mid;
+        int j = end;
+        while ( i >= start && j > i) {
+            if (nums[i] >= nums[j]) {
+                shift(nums, i, j);
+                j--;
+                i--;
+            } else {
+                j--;
+            }
+        }
+        return nums;
+    }
+
+    private static int[] mergeWithNewArray (int[] nums, int start, int mid, int end){
+        if ( start == end ) return nums;
+        int i = start;
+        int j = mid +1 ;
+        int length = end +1 -start;
+        int[] result = new int[length];
         int index = 0;
-        int i=0;
-        int j=0;
-        while (index < result.length){
-            if (i == nums1.length){
-                result[index++]=nums2[j++];
-                continue;
-            }
-            if (j == nums2.length){
-                result[index++]=nums1[i++];
-                continue;
-            }
-            if (nums1[i]<nums2[j]){
-                result[index++]=nums1[i++];
-            }else {
-                result[index++]=nums2[j++];
+        while ( i <= mid || j <= end) {
+            if (i > mid || j > end) {
+                if (i > mid) {
+                    result[index++] = nums[j++];
+                } else if (j > end) {
+                    result[index++] = nums[i++];
+                }
+            } else {
+                if (nums[i] <= nums[j]) {
+                    result[index++] = nums[i++];
+                } else {
+                    result[index++] = nums[j++];
+                }
             }
         }
 
-        return result;
+        index =0;
+        for (int k = start; k <= end; k++) {
+            nums[k]= result[index++];
+        }
+
+        return nums;
     }
 
     public static void main(String[] args){
-        int[] nums = {1,3, 5,2, 9, 10, 7, 45, 6};
-        Merge merge = new Merge();
-        nums = merge.mergeSort(nums);
+        int[] nums = randomIntArray(15, 100);
+        nums = mergeSort(nums, 0, nums.length -1);
 
         for (int num: nums){
             System.out.println(num + " ");
         }
 
+        assertSortedArray(nums);
     }
 }

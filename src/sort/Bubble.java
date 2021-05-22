@@ -1,32 +1,32 @@
 package sort;
 
+import static utils.ArrayUtils.*;
+
 /**
  * Created by jiayanguo on 8/28/16.
+ * O(n^2)
  */
 public class Bubble {
 
-    public int[] bubbleSort(int[] nums){
+    public static int[] bubbleSort(int[] nums){
         if (nums == null || nums.length ==0 || nums.length ==1) return nums;
         for (int i =0; i<nums.length; i ++){
             for (int j = nums.length-1; j>i; j--){
-                if( nums[j]<nums[j-1]) swap(nums, j, j-1);
+                if (nums[i] > nums [j]) {
+                    swap(nums, i ,j);
+                }
             }
         }
         return  nums;
     }
 
-    private void swap (int[] nums, int i, int j){
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
-    }
-
     public static void main(String[] args){
-        Bubble bubble = new Bubble();
-        int[] nums = {1,3, 5,2, 9, 10, 7, 45, 6};
-        nums = bubble.bubbleSort(nums);
+        int[] nums = randomIntArray(15, 100);
+        nums = bubbleSort(nums);
         for (int i =0; i <nums.length; i++){
             System.out.println(nums[i]);
         }
+
+        assertSortedArray(nums);
     }
 }
