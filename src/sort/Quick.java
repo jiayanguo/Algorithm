@@ -1,5 +1,6 @@
 package sort;
 
+import static utils.ArrayUtils.*;
 /**
  * Created by jiayanguo on 8/28/16.
  */
@@ -40,20 +41,14 @@ public class Quick {
         return nums;
     }
 
-    private void swap (int[] nums, int i, int j){
-        if (i>=nums.length || j >= nums.length) return;
-        int temp= nums[i];
-        nums[i] = nums[j];
-        nums[j]=temp;
-    }
-
     public static void main (String[] args) {
         Quick quick = new Quick();
-        int[] nums = {1, 3, 5, 2, 9, 10, 7, 45, 6,8,32,0,4};
+        int[] nums = randomIntArray(15, 100);
         quick.quickSort(nums);
         for (int i = 0; i < nums.length; i++) {
             System.out.print(nums[i] + " ");
         }
         System.out.println();
+        assertSortedArray(nums);
     }
 }
