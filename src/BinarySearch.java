@@ -41,23 +41,7 @@ public class BinarySearch {
         if (arr == null) {
             return 0;
         }
-        int left =0;
-        int right = arr.length - 1;
-        int result = arr.length + 1;
-        int mid = (left + right )/2;
-        int candiate ;
-        if (arr[mid] >= v ) {
-            if (mid +1 < result) {
-                result = mid + 1;
-            }
-            candiate = findMin(left, mid -1, v, arr, result);
-        } else {
-            candiate = findMin(mid +1 , right, v, arr, result);
-        }
-
-        if ( candiate < result) {
-            result = candiate;
-        }
+        int result = findMin(0, arr.length - 1, v, arr, arr.length + 1);
 
         return result;
     }
